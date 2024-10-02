@@ -9,6 +9,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -67,7 +68,10 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private boolean hasCorrectArmorOn(ArmorMaterial material, PlayerEntity player){
-        ArmorItem helmet = ((ArmorItem)player.getInventory().getArmorStack(3).getItem());
-        return helmet.getMaterial() == material;
+        Item slot = player.getInventory().getArmorStack(3).getItem();
+        if (!(slot instanceof ArmorItem)) {
+            return false;
+        }
+        return ((ArmorItem) slot).getMaterial() == material;
     }
 }
